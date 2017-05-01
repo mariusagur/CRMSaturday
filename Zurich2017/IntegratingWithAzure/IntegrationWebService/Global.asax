@@ -1,1 +1,1 @@
-﻿<%@ Application Inherits="IntegrationWebService.Global" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="IntegrationWebService.MvcApplication" Language="C#" %>
