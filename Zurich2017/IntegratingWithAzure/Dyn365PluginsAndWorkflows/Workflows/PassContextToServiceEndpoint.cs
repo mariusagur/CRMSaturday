@@ -10,7 +10,9 @@ namespace Dyn365PluginsAndWorkflows.Workflows
         {
             var workflowContext = context.GetExtension<IWorkflowContext>();
             var service = context.GetExtension<IServiceEndpointNotificationService>();
-            var response = service.Execute(ServiceEndpoint.Get(context), workflowContext);
+            workflowContext.SharedVariables.Add("SuperMessage", "I love this!");
+            var endpoint = ServiceEndpoint.Get(context);
+            var response = service.Execute(endpoint, workflowContext);
             ReturnValue.Set(context, response);
         }
 

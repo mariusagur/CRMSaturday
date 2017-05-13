@@ -36,7 +36,7 @@ namespace RelayService
         {
             Console.WriteLine(
                 $"Entity: {c.PrimaryEntityName}, id: {c.PrimaryEntityId}");
-            return "Message processed in two-way listener";
+            return "secret@password";
         }
     }
 }

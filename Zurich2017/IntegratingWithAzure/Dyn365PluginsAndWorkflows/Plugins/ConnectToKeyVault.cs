@@ -23,7 +23,7 @@ namespace Dyn365PluginsAndWorkflows.Plugins
             string clientSecret = "00000000000000000000000000000000000000000000";
             string tenantId = "00000000-0000-0000-0000-000000000000";
 
-            string secretUrl = "https://myvaulttest.vault.azure.net/secrets/MyPassword/00000000000000000000000000000000";
+            string secretUrl = "https://msdyn365.vault.azure.net/secrets/MyPassword/00000000000000000000000000000000";
 
             //Retrieve the access token required for authentication
             var getTokenTask = Task.Run(async () => await GetToken(clientId, clientSecret, tenantId));
