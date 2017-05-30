@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@types/xrm": "^8.2.4"
+  },
+  "name": "ts",
+  "version": "1.0.0",
+  "description": "TypeScript snippets",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/mariusagur/crmsaturday.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
