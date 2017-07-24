@@ -1,0 +1,82 @@
+@model CrmSaturdayOsloWeb.Models.Speakers
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<style>
+    textarea {
+        width: 100%;
+        max-width: 280px;
+    }
+</style>
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Speakers</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="SpeakerId" />
+        <div class="form-group">
+            <label asp-for="FirstName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TwitterHandle" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TwitterHandle" class="form-control" />
+                <span asp-validation-for="TwitterHandle" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="BlogUrl" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BlogUrl" class="form-control" />
+                <span asp-validation-for="BlogUrl" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Company" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Company" class="form-control" />
+                <span asp-validation-for="Company" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Titles" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Titles" class="form-control" />
+                <span asp-validation-for="Titles" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Bio" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Bio)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

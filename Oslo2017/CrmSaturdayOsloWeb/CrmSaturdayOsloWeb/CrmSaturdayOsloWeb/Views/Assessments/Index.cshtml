@@ -1,0 +1,59 @@
+@model IEnumerable<CrmSaturdayOsloWeb.Models.Assessments>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Attendee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SpeakerFeedback)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SessionFeedback)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rating)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Session)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Attendee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpeakerFeedback)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SessionFeedback)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Session.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AssessmentId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AssessmentId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AssessmentId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

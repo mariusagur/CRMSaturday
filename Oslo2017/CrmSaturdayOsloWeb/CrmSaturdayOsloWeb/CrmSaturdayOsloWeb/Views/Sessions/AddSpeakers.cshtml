@@ -1,0 +1,15 @@
+@model List<CrmSaturdayOsloWeb.Models.Speakers>
+@{
+    ViewData["Title"] = "AddSpeaker";
+}
+
+<h2>AddSpeaker</h2>
+
+@using (Html.BeginForm())
+{
+    @foreach (var speaker in Model)
+    {
+        <input type="checkbox" name="speakerCheckBox" value="@speaker.SpeakerId" />@speaker.FirstName @speaker.LastName<br />
+    }
+    <input id="btnSubmit" type="submit" value="Add" />
+}

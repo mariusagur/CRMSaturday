@@ -1,0 +1,85 @@
+@model IEnumerable<CrmSaturdayOsloWeb.Models.Speakers>
+
+@{
+    ViewData["Title"] = "Speakers";
+    var imageSize = "65px";
+}
+<style>
+    img {
+        height: auto;
+        width: auto;
+        max-width: @imageSize;
+        max-height: @imageSize;
+        padding: 4px;
+    }
+</style>
+<h2>Speakers</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayText("Picture")
+            </th>
+            <th>
+                @Html.DisplayText("Name")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BlogUrl)
+            </th>
+            <th>
+                @Html.DisplayText("Twitter")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td width="@imageSize" align="center">
+                    @{
+                        string imgSrc;
+                        if (item.ProfilePicture != null)
+                        {
+                            var base64 = Convert.ToBase64String(item.ProfilePicture);
+                            imgSrc = String.Format("data:image/{0};base64,{1}", item.ProfilePictureExtension, base64);
+                        }
+                        else
+                        {
+                            imgSrc = "";
+                        }
+                    }
+                    <img src="@imgSrc" />
+                </td>
+                <td>
+                    @{
+                        string speakerName = string.Join(" ", item.FirstName, item.LastName);
+                    }
+                    <strong><a asp-action="Details" asp-route-id="@item.SpeakerId">@speakerName</a></strong>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Titles)
+                </td>
+                <td>
+                    @{
+                        var blogUrl = item.BlogUrl;
+                        if (!string.IsNullOrWhiteSpace(blogUrl) && !blogUrl.StartsWith("https://") && !blogUrl.StartsWith("http://"))
+                        {
+                            blogUrl = "about:blank";
+                        }
+                    }
+                    <a href="@blogUrl" target="_blank">@blogUrl</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.TwitterHandle)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-action="Create">Create new</a>
+}

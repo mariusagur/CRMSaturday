@@ -1,17 +1,9 @@
 ﻿using IntegrationWebService.Factories;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Sdk.WebServiceClient;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Security.Claims;
-using System.ServiceModel.Description;
-using System.Web;
 using System.Web.Mvc;
 
 namespace IntegrationWebService.Controllers

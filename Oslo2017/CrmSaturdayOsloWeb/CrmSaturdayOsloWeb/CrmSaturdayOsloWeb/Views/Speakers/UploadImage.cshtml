@@ -1,0 +1,9 @@
+﻿@model CrmSaturdayOsloWeb.Models.Speakers
+
+@using (Html.BeginForm("FileUpload", "Speakers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="number" name="speakerId" id="speakerId" hidden="hidden" value="@Model.SpeakerId" />
+    <label for="file">Upload Image:</label>
+    <input type="file" name="file" id="file" style="width: 100%;" />
+    <input type="submit" value="Upload" class="submit" />
+}

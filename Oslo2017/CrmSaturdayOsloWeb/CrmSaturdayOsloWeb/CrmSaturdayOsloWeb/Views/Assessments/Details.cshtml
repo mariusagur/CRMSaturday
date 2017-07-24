@@ -1,0 +1,48 @@
+@model CrmSaturdayOsloWeb.Models.Assessments
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Assessments</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Attendee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Attendee)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SpeakerFeedback)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SpeakerFeedback)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionFeedback)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SessionFeedback)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Session)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Session.Description)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.AssessmentId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

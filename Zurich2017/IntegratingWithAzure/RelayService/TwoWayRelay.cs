@@ -14,7 +14,6 @@ namespace RelayService
             var sh = new ServiceHost(typeof(RemoteService));
             var tcpEndpointBehavior = new TransportClientEndpointBehavior();
 
-            var test = ConfigurationManager.AppSettings["SBusEndpoint"];
             sh.AddServiceEndpoint(
                     typeof(RemoteService).GetInterfaces().First(),
                     new WS2007HttpRelayBinding(),

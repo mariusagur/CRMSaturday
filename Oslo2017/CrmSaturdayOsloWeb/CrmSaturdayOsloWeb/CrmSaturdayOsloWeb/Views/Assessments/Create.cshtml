@@ -1,0 +1,66 @@
+@model CrmSaturdayOsloWeb.Models.Assessments
+
+@{
+    ViewData["Title"] = "Create";
+}
+<style>
+    textarea {
+        width: 100%;
+        max-width: 280px;
+    }
+</style>
+
+<h2>Write assessment of '@Model.Session.Title'</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Attendee" class="col-md-2 control-label">Attendee (Email)</label>
+            <div class="col-md-10">
+                <input asp-for="Attendee" class="form-control" />
+                <span asp-validation-for="Attendee" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group" hidden="hidden">
+            <label asp-for="SessionId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SessionId" class="form-control" value="@Model.SessionId" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Session Feedback</label>
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.SessionFeedback)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Speaker Feedback</label>
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.SpeakerFeedback)
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Rating" class="col-md-2 control-label" id="rangevalue"></label>
+            <div class="col-md-10">
+                <output name="scoreOutput" id="scoreOutput" style="border:solid 1px; width: 15px; text-align:center; padding:1px;">3</output>
+                <input asp-for="Rating" class="form-control" type="range" min="1" max="5" oninput="scoreOutput.value = Rating.value" />
+                <div style="width:280px;"><span style="float:left">Poor</span><span style="float:right">Excellent</span></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Back to schedule</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

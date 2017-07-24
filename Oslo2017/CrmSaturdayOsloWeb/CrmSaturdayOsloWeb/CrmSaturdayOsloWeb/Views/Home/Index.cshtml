@@ -1,0 +1,165 @@
+@model IEnumerable<CrmSaturdayOsloWeb.Models.ScheduleDTO>
+
+@{
+    ViewData["Title"] = "Index";
+    var imageSize = "80px";
+}
+<style>
+    img {
+        height: auto;
+        width: auto;
+        max-width: @imageSize;
+        max-height: @imageSize;
+    }
+    .track {
+        width: 50%;
+        height: 100%;
+        border: solid 1px;
+        float: left;
+        padding: 3px;
+    }
+    .scheduledTime {
+        float: left;
+        width: 40px;
+        border-right: solid 1px;
+        height: 100%;
+        margin-right: 5px;
+    }
+    .session {
+        height: 130px;
+    }
+    .speaker {
+        width: 50%;
+        max-width: @imageSize;
+        float: left;
+        align: center;
+    }
+    .sessionDescription {
+        margin-left: 10px;
+        float: left;
+        max-width: 70%;
+    }
+    #keynote, #lunch, #qaPanel {
+        width: 100%;
+        clear: both;
+        border: solid 2px;
+        padding: 2px;
+        text-align: center;
+    }
+    #schedule {
+        clear: both;
+        height: 100%;
+    }
+</style>
+
+<h2>Schedule</h2>
+
+<div id="schedule">
+    @{
+        var schedules = new Dictionary<string, IEnumerable<CrmSaturdayOsloWeb.Models.ScheduleDTO>>();
+        schedules.Add("morning", Model.Where(s => s.Session.Schedule.Value.Hour < 13));
+        schedules.Add("afternoon", Model.Where(s => s.Session.Schedule.Value.Hour >= 13));
+
+        foreach (var schedule in schedules)
+        {
+            if (schedule.Key == "morning")
+            {
+                <div id="keynote">
+                    @{
+                        var keyNote = Model.FirstOrDefault(s => s.Session.Track == 0);
+                        <strong>09:30 - Keynote, CRM Manifesto - Marius &amp; Razwan</strong>
+                    }
+                </div>
+            }
+            else
+            {
+                <div id="lunch">
+                    <strong>13:00 - Lunch</strong>
+                </div>
+            }
+            <div id="track1" class="track">
+                @{
+                    var track1sessions = schedule.Value.Where(s => s.Session.Track == 1).OrderBy(s => s.Session.Schedule).ToList();
+                    foreach (var session in track1sessions)
+                    {
+                        <div class="session">
+                            <div class="scheduledTime">
+                                @{string time = $"{session.Session.Schedule.Value.Hour}:{session.Session.Schedule.Value.Minute.ToString().PadLeft(2, '0')}";}
+                                <strong>@time</strong>
+                            </div>
+                            <div class="speaker">
+                                @foreach (var speaker in session.Speakers)
+                                {
+                                    <div style="width: @((80/session.Speakers.Length).ToString())px; float: left;">
+                                        @if (speaker.ProfilePicture != null && speaker.ProfilePicture.Length > 0)
+                                        {
+                                            var base64 = Convert.ToBase64String(speaker.ProfilePicture);
+                                            var imgSrc = String.Format("data:image/{0};base64,{1}", speaker.ProfilePictureExtension, base64);
+                                            <img src="@imgSrc" style="max-width: @((80/session.Speakers.Length).ToString())px;" />
+                                        }
+                                        <span><strong><a asp-controller="Speakers" asp-action="Details" asp-route-id="@speaker.SpeakerId">@speaker.FirstName @speaker.LastName</a></strong></span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="sessionDescription">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <span><strong><a asp-controller="Sessions" asp-action="Details" asp-route-id="@session.Session.SessionId">@session.Session.Title</a></strong></span><br />
+                                }
+                                else
+                                {
+                                    <span><strong>@session.Session.Title</strong></span><br />
+                                }
+                                <span>@session.Session.Description</span>
+                                <span><a asp-action="Create" asp-controller="Assessments" asp-route-sessionId="@session.Session.SessionId">Review</a></span>
+                            </div>
+                        </div>
+                                    }
+                }
+            </div>
+            <div id="track2" class="track float-left">
+                @{
+                    var track2sessions = schedule.Value.Where(s => s.Session.Track == 2).OrderBy(s => s.Session.Schedule).ToList();
+                    foreach (var session in track2sessions)
+                    {
+                        <div class="session">
+                            <div class="scheduledTime">
+                                @{string time = $"{session.Session.Schedule.Value.Hour}:{session.Session.Schedule.Value.Minute.ToString().PadLeft(2, '0')}";}
+                                <strong>@time</strong>
+                            </div>
+                            <div class="speaker">
+                                @foreach (var speaker in session.Speakers)
+                                {
+                                    <div style="width: @((80/session.Speakers.Length).ToString())px; float: left;">
+                                        @if (speaker.ProfilePicture != null && speaker.ProfilePicture.Length > 0)
+                                        {
+                                            var base64 = Convert.ToBase64String(speaker.ProfilePicture);
+                                            var imgSrc = String.Format("data:image/{0};base64,{1}", speaker.ProfilePictureExtension, base64);
+                                            <img src="@imgSrc" style="max-width: @((80/session.Speakers.Length).ToString())px;" /><br />
+                                        }
+                                        <span><strong><a asp-controller="Speakers" asp-action="Details" asp-route-id="@speaker.SpeakerId">@speaker.FirstName @speaker.LastName</a></strong></span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="sessionDescription">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <span><strong><a asp-controller="Sessions" asp-action="Details" asp-route-id="@session.Session.SessionId">@session.Session.Title</a></strong></span><br />
+                                }
+                                else
+                                {
+                                    <span><strong>@session.Session.Title</strong></span><br />
+                                }
+                                <span>@session.Session.Description</span>
+                                <span><a asp-action="Create" asp-controller="Assessments" asp-route-sessionId="@session.Session.SessionId">Review</a></span>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        }
+    }
+    <div id="qaPanel">
+        <strong>17:00 - Speaker Panel (QA)</strong>
+    </div>
+</div>

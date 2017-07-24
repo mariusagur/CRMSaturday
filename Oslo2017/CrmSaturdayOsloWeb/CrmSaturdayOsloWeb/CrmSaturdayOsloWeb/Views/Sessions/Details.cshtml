@@ -1,0 +1,72 @@
+@model CrmSaturdayOsloWeb.Models.Sessions
+
+@{
+    ViewData["Title"] = "Details";
+}
+<script>
+    function removeSpeaker(speakerId) {
+        $.ajax({
+            url: "/Sessions/RemoveSpeaker?sessionId=@Model.SessionId&speakerId=" + speakerId,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                location.reload();
+            },
+            error: function (xhRequest, ErrorText, thrownError) {
+                alert("Failed to process promotion correctly, please try again");
+                console.log('xhRequest: ' + xhRequest + "\n");
+                console.log('ErrorText: ' + ErrorText + "\n");
+                console.log('thrownError: ' + thrownError + "\n");
+            }
+        });
+        return false;
+    };
+</script>
+<h2>Details</h2>
+
+<div>
+    <h4>Sessions</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Schedule)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Schedule)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HandoutsUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HandoutsUrl)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Track)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Track)
+        </dd>
+        <dt>Speakers:</dt>
+        @foreach (CrmSaturdayOsloWeb.Models.Speakers speaker in ViewBag.Speakers)
+        {
+            <dd><a asp-controller="Speakers" asp-action="Details" asp-route-id="@speaker.SpeakerId">@speaker.FirstName @speaker.LastName</a> (<a href="#" onclick="return (removeSpeaker(@speaker.SpeakerId))">Remove</a>)</dd>
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="AddSpeakers" asp-route-sessionId="@Model.SessionId">Add speaker</a><br />
+    <a asp-action="Edit" asp-route-id="@Model.SessionId">Edit</a><br />
+    <a asp-action="Index">Back to List</a>
+</div>

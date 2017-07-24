@@ -1,0 +1,101 @@
+@model CrmSaturdayOsloWeb.Models.Speakers
+
+@{
+    ViewData["Title"] = "Details";
+    var imageSize = "220px";
+}
+<h2>Details</h2>
+<style>
+    img {
+        height: auto;
+        width: auto;
+        max-width: @imageSize;
+        max-height: @imageSize;
+        padding-right: 10px;
+    }
+    .dl-horizontal dt { text-align: left; width: 100px; }
+    .dl-horizontal dd { margin-left: 0px; }
+</style>
+<div>
+    <h4>Speakers</h4>
+    <hr />
+    <div>
+    <div id="profilePicture" style="width: @imageSize; float: left;">
+        @{
+            string imgSrc;
+            if (Model.ProfilePicture != null)
+            {
+                var base64 = Convert.ToBase64String(Model.ProfilePicture);
+                imgSrc = String.Format("data:image/{0};base64,{1}", Model.ProfilePictureExtension, base64);
+                <img src="@imgSrc" />
+                <br />
+            }
+        }
+    </div>
+        <div id="profileInfo" style="width: 50%; float: left" >
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FirstName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
+                @{
+                    if (!string.IsNullOrWhiteSpace(Model.TwitterHandle))
+                    {
+
+                    <dt>
+                        @Html.DisplayName("Twitter")
+                    </dt>
+                    <dd>
+                        @{
+                            var twitterUrl = $"https://twitter.com/{Model.TwitterHandle.Replace("@", "")}";
+                            <a href="@twitterUrl" target="_blank">@Html.DisplayFor(model => model.TwitterHandle)</a>
+                        }
+                    </dd>
+                    }
+                }
+                <dt>
+                    @Html.DisplayNameFor(model => model.BlogUrl)
+                </dt>
+                <dd>
+                    <span><strong><a href="@Model.BlogUrl">@Model.BlogUrl</a></strong></span>
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Company)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Company)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Titles)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Titles)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Bio)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Bio)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div style="clear: both;">
+    @{
+        if (User.Identity.IsAuthenticated)
+        {
+            <a asp-action="UploadImage" asp-route-id="@Model.SpeakerId">Upload Picture</a><br />
+            <a asp-action="Edit" asp-route-id="@Model.SpeakerId">Edit</a><br />
+        }
+    }
+    <a asp-action="Index">Back to List</a>
+</div>
