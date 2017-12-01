@@ -19,16 +19,17 @@ namespace CrmSaturdayOsloWeb.Models
             modelBuilder.Entity<Assessments>(entity =>
             {
                 entity.HasKey(e => e.AssessmentId)
-                    .HasName("PK_Assessment");
+                    .HasName("PK__Assessme__3D2BF81E2EE14EC5");
 
                 entity.Property(e => e.Attendee)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasMaxLength(450);
 
                 entity.HasOne(d => d.Session)
                     .WithMany(p => p.Assessments)
                     .HasForeignKey(d => d.SessionId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK__Assessmen__Sessi__73BA3083");
             });
 
             modelBuilder.Entity<SessionSpeakers>(entity =>

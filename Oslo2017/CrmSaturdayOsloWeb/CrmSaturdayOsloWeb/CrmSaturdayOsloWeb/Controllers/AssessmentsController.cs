@@ -65,7 +65,7 @@ namespace CrmSaturdayOsloWeb.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AssessmentId,Attendee,SessionId,SpeakerFeedback,SessionFeedback,Rating")] Assessments assessment)
+        public async Task<IActionResult> Create([Bind("Attendee,SessionId,SpeakerFeedback,SessionFeedback,Rating")] Assessments assessment)
         {
             if (!EmailMatch.IsMatch(assessment.Attendee))
             {

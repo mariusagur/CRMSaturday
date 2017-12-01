@@ -7,10 +7,11 @@
     schedules.Add("afternoon", Model.Where(s => s.Session.Schedule.Value.Hour >= 13));
     var hours = new Dictionary<string, int[]> {
         { "morning", new[] { 10, 11, 12 } },
-        { "afternoon", new[] { 14, 15, 16 } }
+        { "afternoon", new[] { 14, 15 } }
     };
     var numberOfTracks = 2;
 }
+<h1><a href="https://twitter.com/hashtag/CRMSaturday" target="_blank">#CRMSaturday</a> Oslo, August 26th. <a href="http://crmsaturday.com/oslo-2017">Official Site</a></h1>
 <h2>Schedule</h2>
 
 <div id="schedule">
@@ -18,23 +19,31 @@
     {
         if (schedule.Key == "morning")
         {
-            <div id="keynote" class="breakout-session flex-container">
-                <nav class="timetable">
+            <div id="keynote" class="breakout-session">
+                <nav class="timetable-breakout">
                     <span>09:30</span>
                 </nav>
-                <div>
+                <div class="breakout-description">
                     <span><strong>Keynote, CRM Manifesto - Marius &amp; Razwan</strong></span>
                 </div>
             </div>
         }
         else
         {
-            <div id="keynote" class="breakout-session flex-container">
-                <nav class="timetable">
+            <div id="keynote" class="breakout-session">
+                <nav class="timetable-breakout">
                     <span>13:00</span>
                 </nav>
-                <div>
-                    <span><strong>Lunch, 1 hour</strong></span>
+                <div class="breakout-description">
+                    <div>
+                        <span><strong>Lunch, 1 hour</strong></span>
+                    </div>
+                    <div class="lunchDemo">
+                        <span>13:15 - Signicat Demo Session (15 min)</span>
+                    </div>
+                    <div class="lunchDemo">
+                        <span>13:30 - Scribe Demo Session (15 min)</span>
+                    </div>
                 </div>
             </div>
         }
@@ -46,7 +55,7 @@
                 var session = schedule.Value.FirstOrDefault(s => s.Session.Schedule.Value.Hour == hour && s.Session.Track == i);
                 if (session != null)
                 {
-                    <div class="flex-container session">
+                    <div class="session">
                         <nav class="timetable">
                             <span>Track @i.ToString()</span><br>
                             <span>@(hour.ToString() + ":00")</span><br><br>
@@ -83,7 +92,7 @@
                 }
                 else
                 {
-                    <div class="flex-container session">
+                    <div class="session">
                         <nav class="timetable">
                             <span>Track @i.ToString()</span><br>
                             <span>@(hour.ToString() + ":00")</span>
@@ -103,11 +112,11 @@
             }
         }
     }
-    <div id="keynote" class="breakout-session flex-container">
-        <nav class="timetable">
-            <span>17:00</span>
+    <div id="keynote" class="breakout-session">
+        <nav class="timetable-breakout">
+            <span>16:00</span>
         </nav>
-        <div>
+        <div class="breakout-description">
             <span><strong>Speaker Panel (QA)</strong></span>
         </div>
     </div>

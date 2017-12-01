@@ -43,10 +43,26 @@ textarea {
 }
 
 .timetable {
-    width: 65px;
+    min-width: 51px;
+    width: 51px;
     float: left;
     text-align: center;
     overflow: hidden;
+}
+
+.timetable-breakout {
+    width: 51px;
+    float: left;
+    text-align: center;
+    overflow: hidden;
+    height: 100%;
+}
+
+.breakout-description {
+    float: left;
+    border-left: solid 1px;
+    text-align: center;
+    width: calc(100% - 51px);
 }
 
 .session {
